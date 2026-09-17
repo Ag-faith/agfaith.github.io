@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ag Faith — Farm and Ranch Appraisal & Brokerage Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:      #344B36;
+      --green-dark: #263728;
+      --green-mid:  #4A7C35;
+      --cream:      #FDF8EF;
+      --cream-mid:  #F7E7C5;
+      --gold:       #DFC084;
+      --gray:       #D9D9D9;
+      --text:       #344B36;
+      --text-light: #5C6E5D;
+      --white:      #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: var(--green);
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      transition: box-shadow .3s;
+    }
+    .nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.3); }
+    .nav-brand { display:flex; align-items:center; gap:12px; text-decoration:none; cursor:pointer; }
+    .nav-logo-mark {
+      width: 38px; height: 38px;
+      filter: brightness(0) invert(1);
+      opacity: .9;
+    }
+    .nav-wordmark {
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 700; font-size: .85rem;
+      letter-spacing: .28em;
+      color: var(--cream-mid);
+    }
+    .nav-links { display:flex; align-items:center; gap:32px; list-style:none; }
+    .nav-links a {
+      font-size: .78rem; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: rgba(253,248,239,.6);
+      text-decoration: none; cursor: pointer;
+      transition: color .2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--cream-mid); }
+    .nav-hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; background:none; border:none; }
+    .nav-hamburger span { display:block; width:24px; height:2px; background:var(--cream-mid); border-radius:2px; transition: .3s; }
+    .nav-mobile { display:none; position:fixed; top:68px; left:0; right:0; background:var(--green-dark); padding:20px 24px; z-index:999; flex-direction:column; gap:0; }
+    .nav-mobile.open { display:flex; }
+    .nav-mobile a { font-size:.9rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:rgba(253,248,239,.7); text-decoration:none; padding:14px 0; border-bottom:1px solid rgba(255,255,255,.08); cursor:pointer; }
+    .nav-mobile a:last-child { border-bottom:none; }
+
+    @media (max-width:768px) {
+      .nav { padding:0 20px; }
+      .nav-links { display:none; }
+      .nav-hamburger { display:flex; }
+    }
+
+    /* ── PAGES ── */
+    .page { display:none; padding-top:68px; }
+    .page.active { display:block; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(38,55,40,.52) 0%, rgba(38,55,40,.68) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      text-align: center;
+      padding: 80px 24px;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .hero-logo {
+      width: 100px; height: auto;
+      margin: 0 auto 24px;
+      display: block;
+      filter: brightness(0) saturate(100%) invert(88%) sepia(18%) saturate(500%) hue-rotate(5deg) brightness(108%);
+    }
+    .hero-wordmark-text {
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 700; font-size: .85rem;
+      letter-spacing: .38em;
+      color: var(--gold);
+      display: block; margin-bottom: 20px;
+    }
+    .hero-rule { width:48px; height:1px; background:var(--gold); margin:0 auto 28px; }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+      font-weight: 600; line-height: 1.12;
+      color: var(--cream);
+      margin-bottom: 16px;
+    }
+    .hero-sub {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: clamp(.9rem, 2vw, 1.05rem);
+      font-style: italic;
+      color: rgba(253,248,239,.78);
+      margin-bottom: 44px;
+      letter-spacing: .03em;
+    }
+    .hero-btn {
+      display: inline-block;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: .8rem; font-weight: 700;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: var(--green); background: var(--cream-mid);
+      padding: 15px 40px;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+    .hero-btn:hover { background: var(--gold); }
+
+    /* ── STATS BAND ── */
+    .stats-band {
+      background: var(--green);
+      display: flex; flex-wrap: wrap;
+      justify-content: center;
+      gap: 0;
+    }
+    .stat-item {
+      padding: 22px 40px;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,.1);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 600;
+      color: var(--gold); line-height: 1;
+    }
+    .stat-lbl {
+      font-size: .68rem; letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(253,248,239,.5);
+      margin-top: 4px;
+    }
+
+    /* ── GENERIC SECTION ── */
+    .section { padding: 96px 48px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-eyebrow {
+      font-size: .72rem; font-weight: 600;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 12px;
+      display: block;
+    }
+    .section-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 600; line-height: 1.15;
+      color: var(--green); margin-bottom: 20px;
+    }
+    .section-body {
+      font-size: .97rem; line-height: 1.82;
+      color: var(--text-light); max-width: 62ch;
+    }
+    .section-body p + p { margin-top: 1em; }
+
+    /* ── TWO COL ── */
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start; }
+    @media (max-width:800px) { .two-col { grid-template-columns:1fr; gap:48px; } }
+
+    /* ── PHOTO FEATURE ── */
+    .photo-feature {
+      width: 100%; height: 420px;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-portrait {
+      width: 100%; height: 500px;
+      object-fit: cover; object-position: top;
+      display: block;
+    }
+
+    /* ── SERVICE LIST ── */
+    .service-list { border-top: 1px solid var(--gray); }
+    .service-item {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding: 22px 0; border-bottom: 1px solid var(--gray);
+    }
+    .service-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; color: var(--gold);
+      flex-shrink: 0; width: 24px; line-height: 1.5;
+    }
+    .service-name {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: .9rem; font-weight: 700;
+      color: var(--green); margin-bottom: 4px;
+      display: block;
+    }
+    .service-desc { font-size: .85rem; line-height: 1.65; color: var(--text-light); }
+
+    /* ── CREAM BAND ── */
+    .cream-band { background: var(--cream-mid); }
+
+    /* ── TERRITORY ── */
+    .territory-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:40px; }
+    @media (max-width:600px) { .territory-grid { grid-template-columns:1fr; } }
+    .territory-card { background:var(--green); padding:32px 24px; text-align:center; }
+    .territory-state {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 600;
+      color: var(--cream-mid); margin-bottom: 8px;
+    }
+    .territory-desc { font-size: .78rem; color: rgba(253,248,239,.55); line-height: 1.6; }
+
+    /* ── PHOTO STRIP ── */
+    .photo-strip { display:grid; grid-template-columns:repeat(3,1fr); gap:4px; }
+    @media (max-width:600px) { .photo-strip { grid-template-columns:1fr; } }
+    .photo-strip img { width:100%; height:260px; object-fit:cover; display:block; }
+
+    /* ── TEAM ── */
+    .team-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+    @media (max-width:700px) { .team-grid { grid-template-columns:1fr; } }
+    .team-card { padding:40px 32px; }
+    .team-card.primary { background:var(--green); }
+    .team-card.secondary { background:var(--cream-mid); }
+    .team-avatar {
+      width:72px; height:72px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.5rem; font-weight:600;
+      margin-bottom:20px;
+    }
+    .team-card.primary .team-avatar { background:rgba(255,255,255,.12); color:var(--gold); }
+    .team-card.secondary .team-avatar { background:rgba(52,75,54,.12); color:var(--green); }
+    .team-name { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:600; margin-bottom:4px; }
+    .team-card.primary .team-name { color:var(--cream); }
+    .team-card.secondary .team-name { color:var(--green); }
+    .team-title { font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; margin-bottom:14px; }
+    .team-card.primary .team-title { color:var(--gold); }
+    .team-card.secondary .team-title { color:var(--text-light); }
+    .team-bio { font-size:.85rem; line-height:1.7; }
+    .team-card.primary .team-bio { color:rgba(253,248,239,.7); }
+    .team-card.secondary .team-bio { color:var(--text-light); }
+    .team-photo { width:100%; height:280px; object-fit:cover; object-position:top; margin-bottom:24px; display:block; }
+
+    /* ── SCRIPTURE ── */
+    .scripture-section { background:var(--green); padding:80px 48px; }
+    .scripture-inner { max-width:700px; }
+    .scripture-mark {
+      font-family:'Cormorant Garamond',serif;
+      font-size:5rem; font-weight:600;
+      color:var(--gold); opacity:.35;
+      line-height:.7; display:block; margin-bottom:16px;
+    }
+    .scripture-text {
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(1.4rem,3vw,2rem);
+      font-style:italic; color:var(--cream);
+      line-height:1.5; margin-bottom:20px;
+    }
+    .scripture-cite {
+      font-size:.72rem; font-weight:600;
+      letter-spacing:.2em; text-transform:uppercase;
+      color:var(--gold);
+    }
+
+    /* ── BG PHOTO SECTION ── */
+    .bg-photo-section {
+      position:relative; padding:96px 48px;
+      background-size:cover; background-position:center;
+      background-attachment:fixed;
+    }
+    .bg-photo-section::before {
+      content:''; position:absolute; inset:0;
+      background:rgba(38,55,40,.72);
+    }
+    .bg-photo-section .section-inner { position:relative; z-index:1; }
+
+    /* ── QUALIFICATIONS ── */
+    .quals-grid { display:grid; grid-template-columns:1fr 1fr; gap:48px; margin-top:40px; }
+    @media (max-width:700px) { .quals-grid { grid-template-columns:1fr; } }
+    .qual-group { }
+    .qual-group-title {
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.3rem; font-weight:600;
+      color:var(--green); margin-bottom:16px;
+      padding-bottom:10px;
+      border-bottom:2px solid var(--gold);
+    }
+    .qual-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .qual-list li {
+      display:flex; gap:12px; align-items:flex-start;
+      font-size:.88rem; line-height:1.55; color:var(--text-light);
+      padding:10px 14px;
+      background:var(--white);
+      border-left:3px solid var(--gold);
+    }
+    .qual-list li strong { color:var(--green); display:block; margin-bottom:2px; }
+
+    /* ── LICENSE BOX ── */
+    .license-box {
+      background:var(--green); color:var(--cream-mid);
+      font-family:monospace; font-size:1rem;
+      letter-spacing:.1em; padding:10px 20px;
+      display:inline-block; margin-top:6px;
+    }
+
+    /* ── LISTINGS ── */
+    .listings-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:32px; margin-top:40px; }
+    @media (max-width:700px) { .listings-grid { grid-template-columns:1fr; } }
+    .listing-card { background:var(--white); border:1px solid var(--gray); }
+    .listing-img { width:100%; height:240px; object-fit:cover; display:block; }
+    .listing-body { padding:24px; }
+    .listing-badge {
+      display:inline-block; background:var(--green); color:var(--cream-mid);
+      font-size:.65rem; font-weight:700; letter-spacing:.12em;
+      text-transform:uppercase; padding:4px 10px; margin-bottom:12px;
+    }
+    .listing-name {
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.4rem; font-weight:600;
+      color:var(--green); margin-bottom:4px;
+    }
+    .listing-location { font-size:.8rem; color:var(--text-light); margin-bottom:16px; }
+    .listing-stats { display:flex; gap:20px; margin-bottom:16px; flex-wrap:wrap; }
+    .listing-stat .ls-val { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-weight:600; color:var(--green); }
+    .listing-stat .ls-lbl { font-size:.65rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text-light); }
+    .listing-desc { font-size:.85rem; line-height:1.65; color:var(--text-light); margin-bottom:20px; }
+    .listing-btn {
+      display:block; background:var(--green); color:var(--cream);
+      font-family:'Source Sans 3',sans-serif;
+      font-size:.78rem; font-weight:700;
+      letter-spacing:.16em; text-transform:uppercase;
+      padding:12px 20px; text-align:center;
+      text-decoration:none; cursor:pointer;
+      border:none; width:100%; transition:background .2s;
+    }
+    .listing-btn:hover { background:var(--green-mid); }
+    .coming-soon-box {
+      background:var(--cream-mid); border:2px dashed var(--gold);
+      padding:60px 40px; text-align:center;
+      grid-column:1/-1;
+    }
+    .coming-soon-box h3 { font-family:'Cormorant Garamond',serif; font-size:1.8rem; color:var(--green); margin-bottom:12px; }
+    .coming-soon-box p { font-size:.9rem; color:var(--text-light); max-width:44ch; margin:0 auto; }
+
+    /* ── CONTACT ── */
+    .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
+    @media (max-width:700px) { .contact-grid { grid-template-columns:1fr; gap:40px; } }
+    .contact-info { display:flex; flex-direction:column; gap:24px; }
+    .contact-item { display:flex; gap:16px; align-items:flex-start; }
+    .contact-icon { flex-shrink:0; width:44px; height:44px; background:var(--green); display:flex; align-items:center; justify-content:center; }
+    .contact-icon svg { color:var(--cream-mid); }
+    .contact-label { font-size:.68rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--text-light); margin-bottom:3px; }
+    .contact-value { font-size:.95rem; color:var(--green); font-weight:600; }
+    .contact-value a { color:inherit; text-decoration:none; }
+    .contact-value a:hover { color:var(--green-mid); }
+
+    /* Form */
+    .contact-form { display:flex; flex-direction:column; gap:16px; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    @media (max-width:500px) { .form-row { grid-template-columns:1fr; } }
+    .form-group { display:flex; flex-direction:column; gap:6px; }
+    .form-label { font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--text-light); }
+    .form-input, .form-textarea, .form-select {
+      font-family:'Source Sans 3',sans-serif;
+      font-size:.9rem; color:var(--text);
+      background:var(--white); border:1px solid var(--gray);
+      padding:12px 14px; outline:none;
+      transition:border-color .2s;
+      width:100%;
+    }
+    .form-input:focus, .form-textarea:focus, .form-select:focus { border-color:var(--green); }
+    .form-textarea { min-height:140px; resize:vertical; }
+    .form-btn {
+      background:var(--green); color:var(--cream);
+      font-family:'Source Sans 3',sans-serif;
+      font-size:.8rem; font-weight:700;
+      letter-spacing:.2em; text-transform:uppercase;
+      padding:15px 32px; border:none; cursor:pointer;
+      transition:background .2s; align-self:flex-start;
+      width:100%;
+    }
+    .form-btn:hover { background:var(--green-mid); }
+
+    /* ── CTA STRIP ── */
+    .cta-strip { background:var(--cream-mid); padding:72px 48px; }
+    .cta-strip-inner {
+      max-width:1100px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:40px; flex-wrap:wrap;
+    }
+    .cta-strip h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(1.8rem,3.5vw,2.4rem); font-weight:600; color:var(--green); }
+    .cta-strip p { font-size:.9rem; color:var(--text-light); margin-top:8px; max-width:44ch; }
+    .cta-strip-btn {
+      background:var(--green); color:var(--cream);
+      font-family:'Source Sans 3',sans-serif;
+      font-size:.8rem; font-weight:700;
+      letter-spacing:.2em; text-transform:uppercase;
+      padding:15px 36px; border:none; cursor:pointer;
+      flex-shrink:0; transition:background .2s; text-decoration:none;
+    }
+    .cta-strip-btn:hover { background:var(--green-mid); }
+    @media (max-width:700px) { .cta-strip { padding:60px 24px; } .cta-strip-inner { flex-direction:column; align-items:flex-start; } }
+
+    /* ── FOOTER ── */
+    footer { background:var(--green-dark); padding:56px 48px 0; }
+    .footer-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:48px; padding-bottom:48px; }
+    @media (max-width:700px) { .footer-inner { grid-template-columns:1fr; gap:32px; } footer { padding:40px 24px 0; } }
+    .footer-brand-name { font-family:'Source Sans 3',sans-serif; font-weight:700; font-size:.85rem; letter-spacing:.28em; color:var(--cream-mid); display:block; margin-bottom:8px; }
+    .footer-tagline { font-size:.82rem; font-style:italic; color:rgba(253,248,239,.45); line-height:1.6; margin-bottom:20px; max-width:30ch; }
+    .footer-contact-line { font-size:.82rem; color:rgba(253,248,239,.5); line-height:2; }
+    .footer-contact-line a { color:var(--gold); text-decoration:none; }
+    .footer-col-title { font-size:.68rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; }
+    .footer-nav { display:flex; flex-direction:column; gap:10px; }
+    .footer-nav a { font-size:.82rem; color:rgba(253,248,239,.45); text-decoration:none; cursor:pointer; transition:color .2s; }
+    .footer-nav a:hover { color:var(--cream-mid); }
+    .footer-bottom { border-top:1px solid rgba(255,255,255,.07); padding:16px 48px; max-width:none; }
+    .footer-bottom-inner { max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; font-size:.72rem; color:rgba(253,248,239,.3); }
+    @media (max-width:700px) { .footer-bottom { padding:16px 24px; } }
+
+    @media (max-width:768px) {
+      .section { padding:64px 24px; }
+      .scripture-section { padding:60px 24px; }
+      .bg-photo-section { padding:64px 24px; }
+      .stats-band { padding:4px 0; }
+      .stat-item { padding:18px 20px; border-right:none; border-bottom:1px solid rgba(255,255,255,.08); width:50%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <div class="nav-brand" onclick="showPage('home')">
+    <img class="nav-logo-mark" src="Ag Faith Black.png" alt="Ag Faith"/>
+    <span class="nav-wordmark">AG FAITH</span>
+  </div>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" class="active" id="nav-home">Home</a></li>
+    <li><a onclick="showPage('qualifications')" id="nav-qualifications">Qualifications</a></li>
+    <li><a onclick="showPage('team')" id="nav-team">Our Team</a></li>
+    <li><a onclick="showPage('ranches')" id="nav-ranches">Ranches for Sale</a></li>
+    <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="nav-mobile" id="mobileMenu">
+  <a onclick="showPage('home');toggleMobileMenu()">Home</a>
+  <a onclick="showPage('qualifications');toggleMobileMenu()">Qualifications</a>
+  <a onclick="showPage('team');toggleMobileMenu()">Our Team</a>
+  <a onclick="showPage('ranches');toggleMobileMenu()">Ranches for Sale</a>
+  <a onclick="showPage('contact');toggleMobileMenu()">Contact</a>
+</div>
+
+<!-- ════════════════════════════════
+     HOME PAGE
+════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg" style="background-image:url('Photo 22.jpg')"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <img class="hero-logo" src="Ag Faith Black.png" alt="Ag Faith"/>
+      <span class="hero-wordmark-text">AG FAITH</span>
+      <div class="hero-rule"></div>
+      <h1>Ag Appraisal &amp; Brokerage</h1>
+      <p class="hero-sub">Helping Farmers &amp; Ranchers Prosper<br/>with Faith, Integrity, and Hard Work</p>
+      <button class="hero-btn" onclick="showPage('contact')">Get in Touch</button>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-band">
+    <div class="stat-item"><div class="stat-num">40+</div><div class="stat-lbl">Years Experience</div></div>
+    <div class="stat-item"><div class="stat-num">3</div><div class="stat-lbl">States Licensed</div></div>
+    <div class="stat-item"><div class="stat-num">ARA</div><div class="stat-lbl">Accredited Rural Appraiser</div></div>
+    <div class="stat-item"><div class="stat-num">MAI</div><div class="stat-lbl">Appraisal Institute</div></div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="section" style="background:var(--cream)">
+    <div class="section-inner">
+      <div class="two-col">
+        <div>
+          <span class="section-eyebrow">About Jim Abel</span>
+          <h2 class="section-h2">Four Decades Rooted in Agriculture</h2>
+          <div class="section-body">
+            <p>Jim Abel has been involved in ag real estate for over 40 years — as an appraiser, broker, and lifelong advocate for the farming and ranching community. His territory spans Central and Northern California, Southern Oregon, and Northern Nevada.</p>
+            <p>Most recently, Jim spent over 20 years in the Farm Credit system before establishing Ag Faith. His mission is to build a positive, motivated, faith-filled team to help farmers and ranchers prosper with Faith, Integrity, and Hard Work.</p>
+            <p>We provide both appraisal and brokerage services with a goal of instilling trust, compassion, and honesty with every person we serve.</p>
+          </div>
+        </div>
+        <div>
+          <img src="20240612_213846058_iOS.jpg" alt="Jim Abel" class="photo-feature"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section cream-band">
+    <div class="section-inner">
+      <div class="two-col">
+        <div>
+          <span class="section-eyebrow">What We Do</span>
+          <h2 class="section-h2">Farm &amp; Ranch Appraisal and Brokerage Services</h2>
+          <div class="section-body">
+            <p>With experience across every agricultural property type imaginable, Jim brings unmatched expertise to every engagement — whether you need a certified appraisal or are buying or selling land.</p>
+          </div>
+        </div>
+        <div class="service-list">
+          <div class="service-item">
+            <span class="service-num">I</span>
+            <div>
+              <span class="service-name">Agricultural Appraisal</span>
+              <p class="service-desc">USPAP-compliant appraisals for livestock ranches, irrigated cropland, orchards, facilities, recreational and timber land.</p>
+            </div>
+          </div>
+          <div class="service-item">
+            <span class="service-num">II</span>
+            <div>
+              <span class="service-name">Ranch Brokerage</span>
+              <p class="service-desc">Provides assistance in the buying and selling of livestock ranches, recreational and wildlife lands throughout California and Nevada.</p>
+            </div>
+          </div>
+          <div class="service-item">
+            <span class="service-num">III</span>
+            <div>
+              <span class="service-name">Land Consulting</span>
+              <p class="service-desc">Market analysis, valuation opinions, and strategic guidance for ag landowners, investors, and lenders.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTO STRIP -->
+  <div class="photo-strip">
+    <img src="Photo 21.jpg" alt="Irrigated ranch land"/>
+    <img src="Photo 25.jpg" alt="Aerial wetlands"/>
+    <img src="Photo 3.jpg" alt="Ranch fence line" onerror="this.src='Photo 16.jpg'"/>
+  </div>
+
+  <!-- TERRITORY -->
+  <section class="section" style="background:var(--cream)">
+    <div class="section-inner">
+      <span class="section-eyebrow">Licensed Territory</span>
+      <h2 class="section-h2">Where We Work</h2>
+      <div class="section-body">
+        <p>Jim holds broker and appraiser licenses across three western states, with deep local knowledge of markets, water rights, and agricultural values in each region.</p>
+      </div>
+      <div class="territory-grid">
+        <div class="territory-card">
+          <div class="territory-state">California</div>
+          <div class="territory-desc">Central &amp; Northern CA<br/>Licensed Broker since 1994</div>
+        </div>
+        <div class="territory-card">
+          <div class="territory-state">Nevada</div>
+          <div class="territory-desc">Northern NV<br/>Broker #B.1003287.INDV</div>
+        </div>
+        <div class="territory-card">
+          <div class="territory-state">Oregon</div>
+          <div class="territory-desc">Southern OR<br/>Licensed Appraiser</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCRIPTURE -->
+  <section class="scripture-section">
+    <div class="section-inner">
+      <div class="scripture-inner">
+        <span class="scripture-mark">"</span>
+        <p class="scripture-text">The one who plants and the one who waters work together with the same purpose. And both will be rewarded for their own hard work.</p>
+        <span class="scripture-cite">1 Corinthians 3:8</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-strip">
+    <div class="cta-strip-inner">
+      <div>
+        <h2>Ready to work with us?</h2>
+        <p>Whether you need an appraisal or are looking to buy or sell ranch land, Jim would love to hear from you.</p>
+      </div>
+      <button class="cta-strip-btn" onclick="showPage('contact')">Contact Jim</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <span class="footer-brand-name">AG FAITH</span>
+        <p class="footer-tagline">Farm and Ranch Appraisal and Brokerage Services</p>
+        <div class="footer-contact-line">
+          <div><a href="tel:5308159500">530-815-9500</a></div>
+          <div><a href="mailto:jim@ag-faith.com">jim@ag-faith.com</a></div>
+          <div>PO Box 792, Chico, CA 95927</div>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigate</div>
+        <nav class="footer-nav">
+          <a onclick="showPage('home')">Home</a>
+          <a onclick="showPage('qualifications')">Qualifications</a>
+          <a onclick="showPage('team')">Our Team</a>
+          <a onclick="showPage('ranches')">Ranches for Sale</a>
+          <a onclick="showPage('contact')">Contact</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Licenses</div>
+        <div class="footer-nav" style="color:rgba(253,248,239,.4);font-size:.8rem;line-height:1.9;">
+          <span>CA Broker #00938242</span>
+          <span>NV B.1003287.INDV</span>
+          <span>OR #C001623</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-inner">
+        <span>&copy; 2026 Ag Faith. All rights reserved.</span>
+        <span>Helping Farmers &amp; Ranchers Prosper<br/>with Faith, Integrity, and Hard Work</span>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /home -->
+
+
+<!-- ════════════════════════════════
+     QUALIFICATIONS PAGE
+════════════════════════════════ -->
+<div class="page" id="page-qualifications">
+
+  <!-- PAGE HERO -->
+  <section class="bg-photo-section" style="background-image:url('Photo 8.jpg'); min-height:45vh; display:flex; align-items:center;">
+    <div class="section-inner" style="text-align:center;">
+      <span class="section-eyebrow" style="color:var(--gold)">Experience &amp; Credentials</span>
+      <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:600;color:var(--cream);line-height:1.1;">Qualifications</h1>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--cream)">
+    <div class="section-inner">
+      <div class="two-col">
+        <div>
+          <span class="section-eyebrow">Jim Abel, ARA, MAI</span>
+          <h2 class="section-h2">40 Years of Agricultural Real Estate Expertise</h2>
+          <div class="section-body">
+            <p>Jim Abel has dedicated his career to agricultural real estate across the American West. With designations from both the American Society of Farm Managers and Rural Appraisers (ARA) and the Appraisal Institute (MAI), Jim brings the highest level of professional credentialing to every assignment.</p>
+            <p>His experience spans every type of agricultural property — irrigated farms, cattle ranches, timber land, recreational properties, vineyards, orchards, and wildlife habitat — across California, Oregon, and Nevada.</p>
+          </div>
+
+          <div style="margin-top:32px;">
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--green);margin-bottom:16px;">Broker Licenses</h3>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <div>
+                <div style="font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-light);margin-bottom:4px;">California — Licensed Since 1994</div>
+                <span class="license-box">Broker #00938242</span>
+              </div>
+              <div>
+                <div style="font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-light);margin-bottom:4px;">California Appraisal License</div>
+                <span class="license-box">#AG005995</span>
+              </div>
+              <div>
+                <div style="font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-light);margin-bottom:4px;">Nevada Broker License</div>
+                <span class="license-box">B.1003287.INDV</span>
+              </div>
+              <div>
+                <div style="font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-light);margin-bottom:4px;">Nevada Appraisal License</div>
+                <span class="license-box">In Process</span>
+              </div>
+              <div>
+                <div style="font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-light);margin-bottom:4px;">Oregon Appraisal License</div>
+                <span class="license-box">#C001623</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <img src="20240612_213846058_iOS.jpg" alt="Jim Abel in the field" class="photo-portrait"/>
+        </div>
+      </div>
+
+      <!-- QUALS GRID -->
+      <div class="quals-grid">
+        <div class="qual-group">
+          <div class="qual-group-title">Professional Designations</div>
+          <ul class="qual-list">
+            <li><div><strong>ARA — Accredited Rural Appraiser</strong>American Society of Farm Managers and Rural Appraisers</div></li>
+            <li><div><strong>MAI — Member Appraisal Institute</strong>Appraisal Institute — highest designation in the profession</div></li>
+          </ul>
+        </div>
+        <div class="qual-group">
+          <div class="qual-group-title">Areas of Expertise</div>
+          <ul class="qual-list">
+            <li><div><strong>Livestock Ranches</strong>Cattle, sheep, and horse operations</div></li>
+            <li><div><strong>Irrigated Farmland</strong>Row crops, hay, alfalfa, grain</div></li>
+            <li><div><strong>Recreational &amp; Wildlife</strong>Hunting, fishing, conservation properties</div></li>
+            <li><div><strong>Timber &amp; Timberland</strong>Commercial and mixed-use forest</div></li>
+            <li><div><strong>Vineyards &amp; Orchards</strong>Wine grapes, tree fruit, nuts</div></li>
+          </ul>
+        </div>
+        <div class="qual-group">
+          <div class="qual-group-title">Territory</div>
+          <ul class="qual-list">
+            <li><div><strong>Central California</strong>Sacramento Valley, San Joaquin Valley</div></li>
+            <li><div><strong>Northern California</strong>Shasta, Siskiyou, Trinity, Modoc counties</div></li>
+            <li><div><strong>Southern Oregon</strong>Jackson, Josephine, Klamath counties</div></li>
+            <li><div><strong>Northern Nevada</strong>Washoe, Elko, Humboldt counties</div></li>
+          </ul>
+        </div>
+        <div class="qual-group">
+          <div class="qual-group-title">Appraisal Services</div>
+          <ul class="qual-list">
+            <li><div><strong>USPAP Compliant</strong>All appraisals meet Uniform Standards</div></li>
+            <li><div><strong>Lender Approved</strong>Farm Credit, commercial banks, SBA</div></li>
+            <li><div><strong>Litigation Support</strong>Expert witness, eminent domain</div></li>
+            <li><div><strong>Estate &amp; Tax</strong>Date of death, gift, estate planning</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCRIPTURE -->
+  <section class="scripture-section">
+    <div class="section-inner">
+      <div class="scripture-inner">
+        <span class="scripture-mark">"</span>
+        <p class="scripture-text">Whatever you do, work at it with all your heart, as working for the Lord, not for human masters.</p>
+        <span class="scripture-cite">Colossians 3:23</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <span class="footer-brand-name">AG FAITH</span>
+        <p class="footer-tagline">Farm and Ranch Appraisal and Brokerage Services</p>
+        <div class="footer-contact-line">
+          <div><a href="tel:5308159500">530-815-9500</a></div>
+          <div><a href="mailto:jim@ag-faith.com">jim@ag-faith.com</a></div>
+          <div>PO Box 792, Chico, CA 95927</div>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigate</div>
+        <nav class="footer-nav">
+          <a onclick="showPage('home')">Home</a>
+          <a onclick="showPage('qualifications')">Qualifications</a>
+          <a onclick="showPage('team')">Our Team</a>
+          <a onclick="showPage('ranches')">Ranches for Sale</a>
+          <a onclick="showPage('contact')">Contact</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Licenses</div>
+        <div style="color:rgba(253,248,239,.4);font-size:.8rem;line-height:1.9;">
+          <div>CA Broker #00938242</div>
+          <div>NV B.1003287.INDV</div>
+          <div>OR #C001623</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-inner">
+        <span>&copy; 2026 Ag Faith. All rights reserved.</span>
+        <span>Helping Farmers &amp; Ranchers Prosper<br/>with Faith, Integrity, and Hard Work</span>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /qualifications -->
+
+
+<!-- ════════════════════════════════
+     TEAM PAGE
+════════════════════════════════ -->
+<div class="page" id="page-team">
+
+  <section class="bg-photo-section" style="background-image:url('Photo 20.jpg'); min-height:45vh; display:flex; align-items:center;">
+    <div class="section-inner" style="text-align:center;">
+      <span class="section-eyebrow" style="color:var(--gold)">The People Behind Ag Faith</span>
+      <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:600;color:var(--cream);line-height:1.1;">Our Team</h1>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--cream)">
+    <div class="section-inner">
+      <span class="section-eyebrow">Faithful People, Expert Service</span>
+      <h2 class="section-h2">Ag Appraisal &amp; Brokerage</h2>
+      <div class="section-body" style="margin-bottom:48px;">
+        <p>We are building a motivated, faith-filled team devoted to serving the agricultural community with honesty and excellence. Each member of the Ag Faith team brings a genuine passion for land, farming, and the people who work it.</p>
+      </div>
+
+      <div class="team-grid">
+
+        <div class="team-card primary">
+          <img src="20240612_213846058_iOS.jpg" alt="Jim Abel" class="team-photo"/>
+          <div class="team-name">Jim Abel, ARA, MAI</div>
+          <div class="team-title">Principal Broker &amp; Appraiser</div>
+          <p class="team-bio">40+ years in agricultural real estate. Licensed broker and appraiser in California, Nevada, and Oregon. Specializes in livestock ranches, recreational properties, and wildlife ground throughout the American West.</p>
+        </div>
+
+        <div class="team-card secondary">
+          <div class="team-avatar">HD</div>
+          <div class="team-name">Holly Doherty</div>
+          <div class="team-title">Trainee Appraiser</div>
+          <p class="team-bio">Photo and bio coming soon.</p>
+        </div>
+
+        <div class="team-card secondary">
+          <div class="team-avatar">C</div>
+          <div class="team-name">Cassie Castillo</div>
+          <div class="team-title">Appraisal Analyst &amp; Social Media Expert</div>
+          <p class="team-bio">Photo and bio coming soon.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SCRIPTURE -->
+  <section class="scripture-section">
+    <div class="section-inner">
+      <div class="scripture-inner">
+        <span class="scripture-mark">"</span>
+        <p class="scripture-text">The one who plants and the one who waters work together with the same purpose. And both will be rewarded for their own hard work.</p>
+        <span class="scripture-cite">1 Corinthians 3:8</span>
+      </div>
+    </div>
+  </section>
+      <div>
+        <div class="footer-col-title">Navigate</div>
+        <nav class="footer-nav">
+          <a onclick="showPage('home')">Home</a>
+          <a onclick="showPage('qualifications')">Qualifications</a>
+          <a onclick="showPage('team')">Our Team</a>
+          <a onclick="showPage('ranches')">Ranches for Sale</a>
+          <a onclick="showPage('contact')">Contact</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Licenses</div>
+        <div style="color:rgba(253,248,239,.4);font-size:.8rem;line-height:1.9;">
+          <div>CA Broker #00938242</div>
+          <div>NV B.1003287.INDV</div>
+          <div>OR #C001623</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-inner">
+        <span>&copy; 2026 Ag Faith. All rights reserved.</span>
+        <span>Helping Farmers &amp; Ranchers Prosper<br/>with Faith, Integrity, and Hard Work</span>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /team -->
+
+
+<!-- ════════════════════════════════
+     RANCHES FOR SALE PAGE
+════════════════════════════════ -->
+<div class="page" id="page-ranches">
+
+  <section class="bg-photo-section" style="background-image:url('Photo 21.jpg'); min-height:45vh; display:flex; align-items:center;">
+    <div class="section-inner" style="text-align:center;">
+      <span class="section-eyebrow" style="color:var(--gold)">Available Properties</span>
+      <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:600;color:var(--cream);line-height:1.1;">Ranches for Sale</h1>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--cream)">
+    <div class="section-inner">
+      <span class="section-eyebrow">Current Listings</span>
+      <h2 class="section-h2">Properties Available Now</h2>
+      <div class="section-body">
+        <p>Jim specializes in livestock ranches, irrigated farmland, recreational properties, and wildlife ground throughout California, Oregon, and Nevada. New listings in Siskiyou County coming soon.</p>
+      </div>
+
+      <div class="listings-grid">
+        <div class="coming-soon-box">
+          <h3>Siskiyou County Listings Coming Soon</h3>
+          <p>Jim is currently working on several exciting new ranch listings in Siskiyou County, California. Contact us to be notified when they become available.</p>
+          <button class="cta-strip-btn" onclick="showPage('contact')" style="margin-top:24px;display:inline-block;">Get Notified</button>
+        </div>
+      </div>
+
+      <!-- PHOTO SHOWCASE -->
+      <div style="margin-top:64px;">
+        <span class="section-eyebrow">The Land We Work With</span>
+        <h2 class="section-h2">Across the American West</h2>
+      </div>
+      <div class="photo-strip" style="margin-top:24px;">
+        <img src="Photo 22.jpg" alt="River valley ranch"/>
+        <img src="Photo 25.jpg" alt="Aerial wetlands property"/>
+        <img src="Photo 21.jpg" alt="Irrigated farmland"/>
+      </div>
+      <div class="photo-strip" style="margin-top:4px;">
+        <img src="Photo 16.jpg" alt="Grassland ranch"/>
+        <img src="Photo 20.jpg" alt="High desert creek"/>
+        <img src="Photo 27.jpg" alt="Green irrigated pasture"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCRIPTURE -->
+  <section class="scripture-section">
+    <div class="section-inner">
+      <div class="scripture-inner">
+        <span class="scripture-mark">"</span>
+        <p class="scripture-text">The earth is the Lord's, and everything in it, the world, and all who live in it.</p>
+        <span class="scripture-cite">Psalm 24:1</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-strip">
+    <div class="cta-strip-inner">
+      <div>
+        <h2>Looking to buy or sell ranch land?</h2>
+        <p>Jim has the local knowledge and network to help you find the right property or the right buyer.</p>
+      </div>
+      <button class="cta-strip-btn" onclick="showPage('contact')">Talk to Jim</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <span class="footer-brand-name">AG FAITH</span>
+        <p class="footer-tagline">Farm and Ranch Appraisal and Brokerage Services</p>
+        <div class="footer-contact-line">
+          <div><a href="tel:5308159500">530-815-9500</a></div>
+          <div><a href="mailto:jim@ag-faith.com">jim@ag-faith.com</a></div>
+          <div>PO Box 792, Chico, CA 95927</div>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigate</div>
+        <nav class="footer-nav">
+          <a onclick="showPage('home')">Home</a>
+          <a onclick="showPage('qualifications')">Qualifications</a>
+          <a onclick="showPage('team')">Our Team</a>
+          <a onclick="showPage('ranches')">Ranches for Sale</a>
+          <a onclick="showPage('contact')">Contact</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Licenses</div>
+        <div style="color:rgba(253,248,239,.4);font-size:.8rem;line-height:1.9;">
+          <div>CA Broker #00938242</div>
+          <div>NV B.1003287.INDV</div>
+          <div>OR #C001623</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-inner">
+        <span>&copy; 2026 Ag Faith. All rights reserved.</span>
+        <span>Helping Farmers &amp; Ranchers Prosper<br/>with Faith, Integrity, and Hard Work</span>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /ranches -->
+
+
+<!-- ════════════════════════════════
+     CONTACT PAGE
+════════════════════════════════ -->
+<div class="page" id="page-contact">
+
+  <section class="bg-photo-section" style="background-image:url('Photo 16.jpg'); min-height:40vh; display:flex; align-items:center;">
+    <div class="section-inner" style="text-align:center;">
+      <span class="section-eyebrow" style="color:var(--gold)">Reach Out</span>
+      <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:600;color:var(--cream);line-height:1.1;">Contact Us</h1>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--cream)">
+    <div class="section-inner">
+      <div class="contact-grid">
+
+        <!-- INFO -->
+        <div>
+          <span class="section-eyebrow">Get in Touch</span>
+          <h2 class="section-h2">We'd Love to Hear From You</h2>
+          <div class="section-body" style="margin-bottom:40px;">
+            <p>Whether you need an agricultural appraisal, are looking to buy or sell ranch land, or just want to talk through your options — Jim is happy to connect.</p>
+          </div>
+
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
+              </div>
+              <div>
+                <div class="contact-label">Phone</div>
+                <div class="contact-value"><a href="tel:5308159500">530-815-9500</a></div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+              </div>
+              <div>
+                <div class="contact-label">Email</div>
+                <div class="contact-value"><a href="mailto:jim@ag-faith.com">jim@ag-faith.com</a></div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+              </div>
+              <div>
+                <div class="contact-label">Mailing Address</div>
+                <div class="contact-value">PO Box 792<br/>Chico, CA 95927</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.004 6.004 0 004.083 9zM10 2a8 8 0 100 16A8 8 0 0010 2zm0 2c-.076 0-.232.032-.465.262-.238.234-.497.623-.737 1.182-.389.907-.673 2.142-.766 3.556h3.936c-.093-1.414-.377-2.649-.766-3.556-.24-.56-.5-.948-.737-1.182C10.232 4.032 10.076 4 10 4zm3.971 5c-.089-1.546-.383-2.97-.837-4.118A6.004 6.004 0 0115.917 9h-1.946zm-2.003 2H8.032c.093 1.414.377 2.649.766 3.556.24.56.5.948.737 1.182.233.23.389.262.465.262.076 0 .232-.032.465-.262.238-.234.498-.623.737-1.182.389-.907.673-2.142.766-3.556z" clip-rule="evenodd"/></svg>
+              </div>
+              <div>
+                <div class="contact-label">Website</div>
+                <div class="contact-value"><a href="https://ag-faith.com" target="_blank">ag-faith.com</a></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Jim photo -->
+          <img src="20240612_213846058_iOS.jpg" alt="Jim Abel" style="width:100%;height:280px;object-fit:cover;object-position:top;margin-top:40px;display:block;"/>
+        </div>
+
+        <!-- FORM -->
+        <div>
+          <span class="section-eyebrow">Send a Message</span>
+          <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--green);margin-bottom:28px;">Tell us about your needs</h3>
+
+          <form class="contact-form" onsubmit="handleFormSubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">First Name</label>
+                <input type="text" class="form-input" placeholder="John" required/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Last Name</label>
+                <input type="text" class="form-input" placeholder="Smith" required/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input type="email" class="form-input" placeholder="john@email.com" required/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <input type="tel" class="form-input" placeholder="(530) 555-0000"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Service Type</label>
+              <select class="form-select form-input">
+                <option value="">Select a service...</option>
+                <option>Agricultural Appraisal</option>
+                <option>Ranch Brokerage — Buying</option>
+                <option>Ranch Brokerage — Selling</option>
+                <option>Land Consulting</option>
+                <option>General Inquiry</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Message</label>
+              <textarea class="form-textarea" placeholder="Tell us about your property, appraisal need, or how we can help..." required></textarea>
+            </div>
+            <button type="submit" class="form-btn">Send Message</button>
+          </form>
+          <div id="form-success" style="display:none;margin-top:20px;padding:20px;background:#EDF5E8;border-left:4px solid var(--green);font-size:.9rem;color:var(--green);">
+            Thank you! Your message has been sent. Jim will be in touch soon.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SCRIPTURE -->
+  <section class="scripture-section">
+    <div class="section-inner">
+      <div class="scripture-inner">
+        <span class="scripture-mark">"</span>
+        <p class="scripture-text">The one who plants and the one who waters work together with the same purpose. And both will be rewarded for their own hard work.</p>
+        <span class="scripture-cite">1 Corinthians 3:8</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <span class="footer-brand-name">AG FAITH</span>
+        <p class="footer-tagline">Farm and Ranch Appraisal and Brokerage Services</p>
+        <div class="footer-contact-line">
+          <div><a href="tel:5308159500">530-815-9500</a></div>
+          <div><a href="mailto:jim@ag-faith.com">jim@ag-faith.com</a></div>
+          <div>PO Box 792, Chico, CA 95927</div>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigate</div>
+        <nav class="footer-nav">
+          <a onclick="showPage('home')">Home</a>
+          <a onclick="showPage('qualifications')">Qualifications</a>
+          <a onclick="showPage('team')">Our Team</a>
+          <a onclick="showPage('ranches')">Ranches for Sale</a>
+          <a onclick="showPage('contact')">Contact</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Licenses</div>
+        <div style="color:rgba(253,248,239,.4);font-size:.8rem;line-height:1.9;">
+          <div>CA Broker #00938242</div>
+          <div>NV B.1003287.INDV</div>
+          <div>OR #C001623</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-inner">
+        <span>&copy; 2026 Ag Faith. All rights reserved.</span>
+        <span>Helping Farmers &amp; Ranchers Prosper<br/>with Faith, Integrity, and Hard Work</span>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /contact -->
+
+<script>
+  // PAGE NAVIGATION
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    const navLink = document.getElementById('nav-' + name);
+    if (navLink) navLink.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // MOBILE MENU
+  function toggleMobileMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // NAV SHADOW ON SCROLL
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // FORM SUBMIT
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    document.getElementById('form-success').style.display = 'block';
+    e.target.reset();
+    e.target.style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
