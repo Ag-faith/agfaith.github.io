@@ -63,7 +63,7 @@
       transition: color .2s;
     }
     .nav-links a:hover, .nav-links a.active { color: var(--cream-mid); }
-    .nav-hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; background:none; border:none; }
+    .nav-hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:8px; background:none; border:none; z-index:1001; position:relative; }
     .nav-hamburger span { display:block; width:24px; height:2px; background:var(--cream-mid); border-radius:2px; transition: .3s; }
     .nav-mobile { display:none; position:fixed; top:68px; left:0; right:0; background:var(--green-dark); padding:20px 24px; z-index:999; flex-direction:column; gap:0; }
     .nav-mobile.open { display:flex; }
@@ -99,10 +99,10 @@
     }
     .hero-content {
       position: relative; z-index: 2;
-      text-align: center;
-      padding: 80px 24px;
-      max-width: 780px;
-      margin: 0 auto;
+      text-align: left;
+      padding: 80px 48px;
+      max-width: 860px;
+      margin: 0 auto 0 0;
     }
     .hero-logo {
       width: 100px; height: auto;
@@ -117,7 +117,7 @@
       color: var(--gold);
       display: block; margin-bottom: 20px;
     }
-    .hero-rule { width:48px; height:1px; background:var(--gold); margin:0 auto 28px; }
+    .hero-rule { width:48px; height:1px; background:var(--gold); margin:0 0 28px; }
     .hero h1 {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(2.2rem, 5.5vw, 3.8rem);
@@ -132,6 +132,7 @@
       color: rgba(253,248,239,.78);
       margin-bottom: 44px;
       letter-spacing: .03em;
+      text-align: left;
     }
     .hero-btn {
       display: inline-block;
@@ -160,7 +161,7 @@
     .stat-item:last-child { border-right: none; }
     .stat-num {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem; font-weight: 600;
+      font-size: 1.4rem; font-weight: 600;
       color: var(--gold); line-height: 1;
     }
     .stat-lbl {
@@ -450,9 +451,14 @@
     @media (max-width:768px) {
       .section { padding:64px 24px; }
       .scripture-section { padding:60px 24px; }
-      .bg-photo-section { padding:64px 24px; }
+      .bg-photo-section { padding:64px 24px; text-align:left; }
+      .bg-photo-section h2, .bg-photo-section p, .bg-photo-section .section-label { text-align:left; }
       .stats-band { padding:4px 0; }
       .stat-item { padding:18px 20px; border-right:none; border-bottom:1px solid rgba(255,255,255,.08); width:50%; }
+      .hero-content { padding:60px 24px; }
+      [style*="text-align:center"] { text-align:left !important; }
+      .section-inner { text-align:left !important; }
+      .section-label, .section-h2, .section p { text-align:left !important; }
     }
   </style>
 </head>
@@ -495,10 +501,10 @@
     <div class="hero-bg" style="background-image:url('hero.jpg')"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <img class="hero-logo" src="Ag Faith Black.png" alt="Ag Faith"/>
+      <img class="hero-logo" src="Ag Faith Black.png" alt="Ag Faith" style="margin:0 0 24px;"/>
       <span class="hero-wordmark-text">AG FAITH</span>
       <div class="hero-rule"></div>
-      <h1>Ag Appraisal &amp; Brokerage</h1>
+      <h1>Appraisal &amp; Brokerage Services<br/><em style="font-style:italic;font-size:0.78em;color:var(--gold);">Trusted Across the West</em></h1>
       <p class="hero-sub">Helping Farmers &amp; Ranchers Prosper<br/>with Faith, Integrity, and Hard Work</p>
       <button class="hero-btn" onclick="showPage('contact')">Get in Touch</button>
     </div>
@@ -852,10 +858,10 @@
         </div>
 
         <div class="team-card secondary">
-          <div class="team-avatar">C</div>
+          <img src="cassie.jpg" alt="Cassie Castillo" class="team-photo"/>
           <div class="team-name">Cassie Castillo</div>
           <div class="team-title">Appraisal Analyst &amp; Social Media Expert</div>
-          <p class="team-bio">Photo and bio coming soon.</p>
+          <p class="team-bio">Cassie is a Chico, CA native with a love for community and connection. She brings creativity and warmth to everything she does — from managing Ag Faith's digital presence to making sure every client feels genuinely cared for. Cassie believes that land isn't just property — it's legacy — and she's honored to help families and ranchers find the right hands to trust it with.</p>
         </div>
 
       </div>
